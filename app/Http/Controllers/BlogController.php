@@ -23,27 +23,31 @@ class BlogController extends Controller
     {
         return view('blogs.create');
     }
+    public function show(Blog $blog)
+    {
+       // return view('blogs.show', compact('blog'));
+    }
 
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required',
-            'content' => 'required',
-            //'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'title' => ['required', 'string', 'max:100'],
+            'content' => ['required', 'string'],
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         // Create a new instance of Blog model
         $blog = new Blog;
         
         // Handle the image upload
-        /*
+        
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $file_name = time() . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('images'), $file_name);
             $blog->image = $file_name;
         }
-            */
+            
 
         // Assign the validated data to the Blog model
         $blog->title = $request->title;
@@ -60,28 +64,28 @@ class BlogController extends Controller
 
     public function edit(Blog $blog)
     {
-        // $this->authorize('update', $blog);
-        // return view('blogs.edit', compact('blog'));
+        //$this->authorize('update', $blog);
+        return view('blogs.edit', compact('blog'));
     }
 
     public function update(Request $request, Blog $blog)
     {
-        // $this->authorize('update', $blog);
-        // $request->validate([
-        //     'title' => 'required|max:255',
-        //     'content' => 'required',
-        // ]);
+        //$this->authorize('update', $blog);
+        $request->validate([
+            'title' => 'required|max:255',
+            'content' => 'required',
+        ]);
 
-        // $blog->update($request->only('title', 'content'));
+        $blog->update($request->only('title', 'content'));
 
-        // return redirect()->route('blogs.index')->with('success', 'Blog updated successfully.');
+        return redirect()->route('blogs.index')->with('success', 'Blog updated successfully.');
     }
 
     public function destroy(Blog $blog)
     {
         //$this->authorize('delete', $blog);
-        // $blog->delete();
+        $blog->delete();
 
-        // return redirect()->route('blogs.index')->with('success', 'Blog deleted successfully.');
+        return redirect()->route('blogs.index')->with('success', 'Blog deleted successfully.');
     }
 }

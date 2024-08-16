@@ -1,5 +1,5 @@
-@extends('layouts.app')
-@section('content')
+<x-app-layout>
+    <x-slot name="header">
 <div class="container">
   <h1>Add Post</h1>
   <section class="mt-3">
@@ -21,11 +21,11 @@
         <label for="floatingTextArea">Content</label>
         <textarea class="form-control" name="content" id="floatingTextarea" cols="30" rows="10"></textarea>
 
-        <!--
+        
         <label for="formFile" class="form-label">Add Image</label>
         <img src="" alt="" class="img-blog">
         <input class="form-control" type="file" name="image">
-        -->
+       
         
       </div>
       <button class="btn btn-secondary m-3">Save</button>
@@ -33,4 +33,7 @@
   </section>
     
 </div>
-@endsection
+</x-slot>
+
+    
+</x-app-layout>

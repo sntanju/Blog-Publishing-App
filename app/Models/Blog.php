@@ -10,7 +10,8 @@ class Blog extends Model
     use HasFactory;
 
     //protected $fillable = ['title', 'content', 'image'];
-    protected $fillable = ['title', 'content'];
+    //protected $primaryKey = 'blog_id';
+    protected $fillable = ['title', 'content', 'image', 'user_id'];
 
     public function user()
     {
