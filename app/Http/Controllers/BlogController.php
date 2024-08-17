@@ -9,12 +9,6 @@ class BlogController extends Controller
 {
     public function index()
     {
-        //$blogs = Blog::with('user', 'upvotes', 'downvotes')->latest()->paginate(10);
-        //return view('blogs.index', compact('blogs'));
-
-       // $blogs = Blog::all();
-        //return view('blogs.index', compact('blogs'));
-
         $blogs = Blog::orderBy('created_at', 'desc')->get();
         return view('blogs.index', ['blogs' => $blogs]);
     }
@@ -23,9 +17,10 @@ class BlogController extends Controller
     {
         return view('blogs.create');
     }
+
     public function show(Blog $blog)
     {
-       // return view('blogs.show', compact('blog'));
+       
     }
 
     public function store(Request $request)
@@ -40,7 +35,6 @@ class BlogController extends Controller
         $blog = new Blog;
         
         // Handle the image upload
-        
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $file_name = time() . '.' . $file->getClientOriginalExtension();
@@ -61,7 +55,6 @@ class BlogController extends Controller
         return redirect()->route('blogs.index')->with('success', 'Blog created successfully.');
     }
 
-
     public function edit(Blog $blog)
     {
         //$this->authorize('update', $blog);
@@ -77,7 +70,6 @@ class BlogController extends Controller
         ]);
 
         $blog->update($request->only('title', 'content'));
-
         return redirect()->route('blogs.index')->with('success', 'Blog updated successfully.');
     }
 
