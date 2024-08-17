@@ -1,7 +1,11 @@
 <?php
 
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\VoteController;
 use Illuminate\Support\Facades\Route;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 Route::get('/', function () {
     return view('welcome');
@@ -20,5 +24,15 @@ Route::middleware('auth')->group(function () {
 Route::get('/only-verified', function () {
     return view('only-verified');
  })->middleware(['auth', 'verified']);
+
+
+ Route::resource('blogs', BlogController::class);
+ 
+
+
+ Route::middleware(['auth', 'verified'])->group(function () {
+    Route::resource('blogs', BlogController::class);
+    Route::post('blogs/{blog}/vote', [VoteController::class, 'vote'])->name('blogs.vote');
+});
 
 require __DIR__.'/auth.php';
