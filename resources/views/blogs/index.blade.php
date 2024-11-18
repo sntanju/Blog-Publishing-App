@@ -14,7 +14,8 @@
                     <div class="bg-white rounded-lg shadow-md p-6">
                         <h2 class="text-xl font-semibold mb-2">{{ $blog->title }}</h2>
                         <img src="{{ asset('images/'.$blog->image)}}" alt="Blog Image" class="w-full h-40 object-cover rounded-md mb-4">
-                        <p class="text-gray-700 mb-4">{{ \Illuminate\Support\Str::limit($blog->content, 500) }}</p>
+                        <p class="text-gray-700 mb-4">{{ \Illuminate\Support\Str::limit($blog->content, 300) }}</p>
+                        
                         <div class="flex justify-between items-center text-sm text-gray-500">
                             <span>Posted {{ $blog->created_at->diffForHumans() }}</span>
                             <span>By {{ $blog->user->name }}</span>
@@ -45,7 +46,7 @@
                          <span class="mx-2">Total Votes: {{ $blog->upvotes->count() - $blog->downvotes->count() }}</span>
                     </div>
                         <div class="flex mt-4 space-x-2">
-                            <!-- <a href="{{ route('blogs.show', $blog) }}" class="text-blue-500 hover:underline">Read more</a> -->
+                            <a href="{{ route('blogs.show', $blog) }}" class="text-blue-500 hover:underline">Read more</a>
                             @if(Auth::check() && Auth::id() === $blog->user_id)
                                 <a href="{{ route('blogs.edit', $blog) }}" class="text-green-500 hover:underline">Edit</a>
                                 <form method="POST" action="{{ route('blogs.destroy', $blog) }}">

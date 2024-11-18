@@ -17,6 +17,6 @@ class VoteController extends Controller
             ['upvote' => $request->upvote]
         );
 
-        return redirect()->route('blogs.index')->with('success', 'Vote recorded.');
+        return redirect()->route('home')->with('success', 'Vote recorded.');
     }
 }

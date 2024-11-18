@@ -40,20 +40,24 @@ class BlogControllerTest extends TestCase
             'content' => 'This is test blog content.',
         ]);
 
-        $response->assertRedirect(route('blogs.index'));
+        $response->assertRedirect(route('home'));
         $this->assertDatabaseHas('blogs', ['title' => 'Test Blog']);
     }
 
-    // public function test_show_blog()
-    // {
-    //     $blog = Blog::factory()->create();
-    //     $this->actingAs($user);
-
-    //     $blog = Blog::factory()->create();
-
-    //     $response = $this->get(route('blogs.show', $blog->id));
-    //     $response->assertStatus(200)
-    //              ->assertSee($blog->title)
-    //              ->assertSee($blog->content);
-    // }
+    public function test_show_blog()
+    {
+        // Create a user and authenticate
+        $user = User::factory()->create();
+        $this->actingAs($user);
+    
+        // Create a blog
+        $blog = Blog::factory()->create();
+    
+        // Test the show route
+        $response = $this->get(route('blogs.show', $blog->id));
+        $response->assertStatus(200)
+                 ->assertSee($blog->title)
+                 ->assertSee($blog->content);
+    }
+    
 }
