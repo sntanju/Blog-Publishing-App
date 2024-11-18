@@ -4,12 +4,11 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VoteController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -34,5 +33,10 @@ Route::get('/only-verified', function () {
     Route::resource('blogs', BlogController::class);
     Route::post('blogs/{blog}/vote', [VoteController::class, 'vote'])->name('blogs.vote');
 });
+
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::delete('/blogs/{id}', [AdminMiddleware::class, 'deleteBlog'])->name('admin.blogs.delete');
+});
+
 
 require __DIR__.'/auth.php';
