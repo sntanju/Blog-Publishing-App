@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('blog_id')->constrained()->onDelete('cascade');
             $table->boolean('upvote');
             $table->timestamps();
-            $table->unique(['user_id', 'blog_id']);
+           // $table->unique(['user_id', 'blog_id']);
         });
     }
 
