@@ -49,7 +49,7 @@
                             <a href="{{ route('blogs.show', $blog) }}" class="text-blue-500 hover:underline">Read more</a>
                             @if(Auth::check() && Auth::id() === $blog->user_id)
                                 <a href="{{ route('blogs.edit', $blog) }}" class="text-green-500 hover:underline">Edit</a>
-                                <form method="POST" action="{{ route('blogs.destroy', $blog) }}">
+                                <form method="POST" action="{{ route('blogs.destroy', $blog) }}" onsubmit="return confirm('Are you sure you want to delete this blog?');">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="text-red-500 hover:underline">Delete</button>

@@ -66,7 +66,7 @@ class BlogController extends Controller
         ]);
 
         $blog->update($request->only('title', 'content'));
-        return redirect()->route('blogs.index')->with('success', 'Blog updated successfully.');
+        return redirect()->route('home')->with('success', 'Blog updated successfully.');
     }
 
     public function vote(Request $request, Blog $blog)
@@ -104,6 +104,6 @@ class BlogController extends Controller
         Gate::authorize('delete', $blog);
         $blog->delete();
 
-        return redirect()->route('blogs.index')->with('success', 'Blog deleted successfully.');
+        return redirect()->route('home')->with('success', 'Blog deleted successfully.');
     }
 }
